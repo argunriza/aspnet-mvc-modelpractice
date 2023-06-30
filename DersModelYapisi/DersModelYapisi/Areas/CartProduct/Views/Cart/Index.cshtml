@@ -1,0 +1,59 @@
+﻿@using DersModelYapisi.Areas.CartProduct.Models
+@model List<DersModelYapisi.Areas.CartProduct.Models.CartProduct>
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <style>
+        .center {
+            text-align: center;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="center">
+            <h2>Cart Products</h2>
+        </div>
+
+        <table class="table table-bordered mx-auto mt-5">
+            <thead>
+                <tr>
+                    <th scope="col">Id</th>
+                    <th scope="col">Product</th>
+                    <th scope="col">Price</th>
+                    <th scope="col">Quantity</th>
+                    
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (CartProduct cartProduct in Model)
+                {
+                    <tr>
+                        <td>@cartProduct.Product.Id</td>
+                        <td>@cartProduct.Product.Name</td>
+                        <td>@cartProduct.Price</td>
+                        <td>@cartProduct.Quantity</td>
+                        
+                    </tr>
+                }
+                <tr>
+                    <td colspan="3" class="text-right"><strong>Total Price:</strong></td>
+                    <td>@Model.Sum(c => c.TotalPrice)</td>
+                </tr>
+                <tr>
+                    <td colspan="3" class="text-right"><strong>VAT (18%):</strong></td>
+                    <td> @(Model.Sum(c => (double)c.TotalPrice) * 0.18)</td>
+                </tr>
+                <tr>
+                    <td colspan="3" class="text-right"><strong>Total Price (Including VAT):</strong></td>
+                    <td> @(Model.Sum(c => (double)c.TotalPrice) * 1.18)</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+</body>
+</html>
